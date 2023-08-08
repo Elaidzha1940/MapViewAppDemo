@@ -11,21 +11,34 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, CLLocationManagerDelegate {
+    
     @IBOutlet weak var mapView: MKMapView!
     
-    fileprivate let locationManager: CLLocationManager = CLLocationManager()
+    let locationManager = CLLocationManager()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = kCLDistanceFilterNone
-        locationManager.startUpdatingLocation()
+    override func viewDidLoad(_ animateed: Bool) {
+        super.viewDidLoad(animated)
         
-        mapView.showsUserLocation = true
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocation locations: [CLLocation]) {
+        if let location = locations.first {
+            locationManager.stopUpdatingLocation()
+            
+            render(location)
+        }
+    }
+    
+    func render(_ location: CLLocation) {
+        
+        let coorinate = CLLocation(latitude: location.coordinate.latitude , longitude: location.coordinate.longitude)
+        let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+        let regino = MKCoordinateRegion(center: coorinate, span: span)
     }
 }
 
