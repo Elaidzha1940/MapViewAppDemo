@@ -1,9 +1,11 @@
+//  /*
 //
-//  SceneDelegate.swift
-//  MapViewAppDemo
+//  Project: MapViewAppDemo
+//  File: SceneDelegate.swift
+//  Created by: Elaidzha Shchukin
+//  Date: 08.08.2023
 //
-//  Created by Elaidzha Shchukin on 08.08.2023.
-//
+//  */
 
 import UIKit
 
